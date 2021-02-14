@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Authentication.Models.Users>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Users List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-6">
+            <b>Find by name user:</b> @Html.TextBox("searchName")
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+        <div class="col-md-6">
+            <b>Find by rol: </b>@Html.TextBox("searchRol")
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </div>
+}
+<br/>
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("User", "Index", new { sortOrder = ViewBag.UserSortParm })
+        </th>
+        <th>
+            Complet Names
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.ActionLink("Rol", "Index", new { sortOrder = ViewBag.RolSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompletNames)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone.ToString().Split(',')[0])
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Roles.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
